@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dotnet-ddns:
+    image: ${DOCKER_REGISTRY-}dotnet-ddns
+    build:
+      context: .
+      dockerfile: DotNET.DDNS.Worker/Dockerfile
