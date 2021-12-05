@@ -1,7 +1,6 @@
 using DotNET.DDNS.Application.InternetProtocol;
 using DotNET.DDNS.Application.Loaders;
 using DotNET.DDNS.Worker;
-using System.Reflection;
 
 IConfiguration? config = null;
 
@@ -12,13 +11,8 @@ var host = Host.CreateDefaultBuilder(args)
             .AddJsonFile("appsettings.json")
             .AddJsonFile($"appsettings.{host.HostingEnvironment.EnvironmentName}.json", true)
             .AddCommandLine(args)
-            .AddEnvironmentVariables("DOTNET_DDNS_");
-
-        var filesLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-        Directory.CreateDirectory(Path.Combine(filesLocation, "Providers"));
-
-        var configurations = Directory.GetFiles(filesLocation, "Providers/*.json").ToList();
-        configurations.ForEach(e => configuration.AddJsonFile(e, true));
+            .AddEnvironmentVariables("DOTNET_DDNS_")
+            .AddProviderConfigurations();
 
         config = configuration.Build();
     })

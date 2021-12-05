@@ -1,1 +1,6 @@
 version: '3.4'
+
+services:
+  dotnet-ddns:
+    volumes:
+      - ./.env:/data/
