@@ -1,6 +1,8 @@
 version: '3.4'
 
 services:
-  dotnet-ddns:
+  open-ddns-host:
     volumes:
       - ./.env:/data/
+    ports:
+      - "5000:80"

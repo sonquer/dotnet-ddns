@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  dotnet-ddns:
-    image: ${DOCKER_REGISTRY-}dotnet-ddns
+  open-ddns-host:
+    image: ${DOCKER_REGISTRY-}open-ddns-host
     build:
       context: .
-      dockerfile: DotNET.DDNS.Worker/Dockerfile
+      dockerfile: Openddns.Host/Dockerfile

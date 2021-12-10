@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotNET.DDNS.Providers.Ovh\DotNET.DDNS.Providers.Ovh.csproj" />
-    <ProjectReference Include="..\DotNET.DDNS.Providers\DotNET.DDNS.Providers.csproj" />
+    <ProjectReference Include="..\Openddns.Providers.Ovh\Openddns.Providers.Ovh.csproj" />
+    <ProjectReference Include="..\Openddns.Providers\Openddns.Providers.csproj" />
   </ItemGroup>
 
 </Project>
