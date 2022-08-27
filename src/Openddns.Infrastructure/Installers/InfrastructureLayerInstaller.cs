@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Openddns.Core.Interfaces;
-using Openddns.Infrastructure.SQLite.Repositories;
-using System.Runtime.InteropServices;
+using Openddns.Infrastructure.Repositories;
 
-namespace Openddns.Infrastructure.SQLite.Installers
+namespace Openddns.Infrastructure.Installers
 {
     public class InfrastructureLayerInstaller : IInstaller
     {

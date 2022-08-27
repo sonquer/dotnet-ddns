@@ -1,27 +1,26 @@
-﻿using System;
+﻿using Openddns.Providers.Interfaces;
+using Openddns.Providers.Models;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Openddns.Providers;
-using Openddns.Providers.Models;
 
 namespace Openddns.Application.Loaders
 {
-    public class ProviderPluginLoader : IProviderPluginLoader
+    public class ProviderLoader : IProviderPluginLoader
     {
         private readonly Dictionary<string, IProvider> _loadedProviders = new();
 
-        public ProviderPluginLoader(IServiceProvider serviceProvider)
+        public ProviderLoader(IServiceProvider serviceProvider)
         {
-            var filesLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            var providers = Directory.GetFiles(filesLocation, "*.Providers.*.dll");
-            foreach (var provider in providers)
-            {
-                var typeToActivate = Assembly.LoadFile(provider).GetTypes()
-                    .First(e => e.IsClass && e.IsAbstract == false && e.GetInterfaces().Contains(typeof(IProvider)));
+            var typesToActivate = typeof(IProvider)
+                .Assembly
+                .GetTypes()
+                .Where(e => e.IsClass && e.IsAbstract == false && e.GetInterfaces().Contains(typeof(IProvider)));
 
+            foreach (var typeToActivate in typesToActivate)
+            {
                 var constructor = typeToActivate.GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
 
                 var serviceInstances = constructor.GetParameters()
@@ -29,7 +28,7 @@ namespace Openddns.Application.Loaders
                     .Select(serviceProvider.GetService)
                     .ToList();
 
-                var instance = (IProvider) Activator.CreateInstance(typeToActivate, serviceInstances.ToArray())!;
+                var instance = (IProvider)Activator.CreateInstance(typeToActivate, serviceInstances.ToArray())!;
 
                 _loadedProviders.Add(instance.Name, instance);
             }

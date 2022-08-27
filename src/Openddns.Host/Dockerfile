@@ -3,20 +3,19 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
+WORKDIR /
 COPY ["Openddns.Host/Openddns.Host.csproj", "Openddns.Host/"]
-COPY ["Openddns.Infrastructure.SQLite/Openddns.Infrastructure.SQLite.csproj", "Openddns.Infrastructure.SQLite/"]
-COPY ["Openddns.Core/Openddns.Core.csproj", "Openddns.Core/"]
 COPY ["Openddns.Application/Openddns.Application.csproj", "Openddns.Application/"]
 COPY ["Openddns.Providers/Openddns.Providers.csproj", "Openddns.Providers/"]
-COPY ["Openddns.Providers.Ovh/Openddns.Providers.Ovh.csproj", "Openddns.Providers.Ovh/"]
+COPY ["Openddns.Core/Openddns.Core.csproj", "Openddns.Core/"]
+COPY ["Openddns.Infrastructure/Openddns.Infrastructure.csproj", "Openddns.Infrastructure/"]
 RUN dotnet restore "Openddns.Host/Openddns.Host.csproj"
 COPY . .
-WORKDIR "/src/Openddns.Host"
+WORKDIR "/Openddns.Host"
 RUN dotnet build "Openddns.Host.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Openddns.Host.csproj" -c Release -o /app/publish
+RUN dotnet publish "Openddns.Host.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

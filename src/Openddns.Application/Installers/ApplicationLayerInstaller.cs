@@ -11,7 +11,7 @@ namespace Openddns.Application.Installers
     {
         public IServiceCollection Install(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IProviderPluginLoader, ProviderPluginLoader>()
+            serviceCollection.AddSingleton<IProviderPluginLoader, ProviderLoader>()
                 .AddSingleton<IExternalInternetProtocolAddressRecognizer, ExternalInternetProtocolAddressRecognizer>();
 
             serviceCollection.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());

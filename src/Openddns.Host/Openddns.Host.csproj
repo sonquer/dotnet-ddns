@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Openddns.Application\Openddns.Application.csproj" />
-    <ProjectReference Include="..\Openddns.Infrastructure.SQLite\Openddns.Infrastructure.SQLite.csproj" />
+    <ProjectReference Include="..\Openddns.Infrastructure\Openddns.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

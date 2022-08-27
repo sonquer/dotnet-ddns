@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Openddns.Providers.Models;
+﻿using Openddns.Providers.Models;
+using System.Threading.Tasks;
 
-namespace Openddns.Providers
+namespace Openddns.Providers.Interfaces
 {
     public interface IProvider
     {

@@ -2,7 +2,7 @@
 using Openddns.Core.Interfaces;
 using Openddns.Core.Models;
 
-namespace Openddns.Infrastructure.SQLite
+namespace Openddns.Infrastructure
 {
     public class DatabaseContext : DbContext, IUnitOfWork
     {

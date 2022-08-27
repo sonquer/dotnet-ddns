@@ -2,7 +2,7 @@
 using Openddns.Core.Interfaces;
 using Openddns.Core.Models;
 
-namespace Openddns.Infrastructure.SQLite.Repositories
+namespace Openddns.Infrastructure.Repositories
 {
     public class Repository : IRepository
     {

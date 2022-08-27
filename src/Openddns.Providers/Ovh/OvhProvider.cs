@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Openddns.Core.Interfaces;
 using Openddns.Core.Models;
+using Openddns.Providers.Interfaces;
 using Openddns.Providers.Models;
 using Openddns.Providers.Ovh.Models;
 using Ovh.Api;
