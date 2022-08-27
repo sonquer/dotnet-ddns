@@ -1,6 +1,6 @@
-using DotNET.DDNS.Application.Loaders;
-using DotNET.DDNS.Worker;
 using Microsoft.AspNetCore;
+using Openddns.Application.Loaders;
+using Openddns.Host;
 
 var host = WebHost.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((host, configuration) =>

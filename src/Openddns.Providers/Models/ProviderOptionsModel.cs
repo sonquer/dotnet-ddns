@@ -1,4 +1,4 @@
-﻿namespace DotNET.DDNS.Providers.Models
+﻿namespace Openddns.Providers.Models
 {
     public class ProviderOptionsModel
     {

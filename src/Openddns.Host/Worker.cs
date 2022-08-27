@@ -1,8 +1,8 @@
-using DotNET.DDNS.Application.InternetProtocol;
-using DotNET.DDNS.Application.Loaders;
-using DotNET.DDNS.Providers.Models;
+using Openddns.Application.InternetProtocol;
+using Openddns.Application.Loaders;
+using Openddns.Providers.Models;
 
-namespace DotNET.DDNS.Worker
+namespace Openddns.Host
 {
     public class Worker : BackgroundService
     {

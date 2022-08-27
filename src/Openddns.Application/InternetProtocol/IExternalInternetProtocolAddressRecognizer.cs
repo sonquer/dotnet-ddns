@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
-namespace DotNET.DDNS.Application.InternetProtocol
+namespace Openddns.Application.InternetProtocol
 {
     public interface IExternalInternetProtocolAddressRecognizer
     {

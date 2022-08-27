@@ -4,19 +4,21 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["DotNET.DDNS.Worker/DotNET.DDNS.Worker.csproj", "DotNET.DDNS.Worker/"]
-COPY ["DotNET.DDNS.Application/DotNET.DDNS.Application.csproj", "DotNET.DDNS.Application/"]
-COPY ["DotNET.DDNS.Providers.Ovh/DotNET.DDNS.Providers.Ovh.csproj", "DotNET.DDNS.Providers.Ovh/"]
-COPY ["DotNET.DDNS.Providers/DotNET.DDNS.Providers.csproj", "DotNET.DDNS.Providers/"]
-RUN dotnet restore "DotNET.DDNS.Worker/DotNET.DDNS.Worker.csproj"
+COPY ["Openddns.Host/Openddns.Host.csproj", "Openddns.Host/"]
+COPY ["Openddns.Infrastructure.SQLite/Openddns.Infrastructure.SQLite.csproj", "Openddns.Infrastructure.SQLite/"]
+COPY ["Openddns.Core/Openddns.Core.csproj", "Openddns.Core/"]
+COPY ["Openddns.Application/Openddns.Application.csproj", "Openddns.Application/"]
+COPY ["Openddns.Providers/Openddns.Providers.csproj", "Openddns.Providers/"]
+COPY ["Openddns.Providers.Ovh/Openddns.Providers.Ovh.csproj", "Openddns.Providers.Ovh/"]
+RUN dotnet restore "Openddns.Host/Openddns.Host.csproj"
 COPY . .
-WORKDIR "/src/DotNET.DDNS.Worker"
-RUN dotnet build "DotNET.DDNS.Worker.csproj" -c Release -o /app/build
+WORKDIR "/src/Openddns.Host"
+RUN dotnet build "Openddns.Host.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DotNET.DDNS.Worker.csproj" -c Release -o /app/publish
+RUN dotnet publish "Openddns.Host.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DotNET.DDNS.Worker.dll"]
+ENTRYPOINT ["dotnet", "Openddns.Host.dll"]

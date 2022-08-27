@@ -1,12 +1,12 @@
-﻿using DotNET.DDNS.Application.InternetProtocol.Enums;
-using DotNET.DDNS.Application.InternetProtocol.Providers;
-using DotNET.DDNS.Application.InternetProtocol.Providers.External;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Openddns.Application.InternetProtocol.Enums;
+using Openddns.Application.InternetProtocol.Providers;
+using Openddns.Application.InternetProtocol.Providers.External;
 
-namespace DotNET.DDNS.Application.InternetProtocol.Factories
+namespace Openddns.Application.InternetProtocol.Factories
 {
     internal class InternetProtocolProviderFactory
     {

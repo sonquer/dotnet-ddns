@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DotNET.DDNS.Providers.Ovh.Models
+namespace Openddns.Providers.Ovh.Models
 {
     internal class DnsRecordPost
     {

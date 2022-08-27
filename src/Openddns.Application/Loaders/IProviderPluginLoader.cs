@@ -1,8 +1,8 @@
-﻿using DotNET.DDNS.Providers.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Openddns.Providers.Models;
 
-namespace DotNET.DDNS.Application.Loaders
+namespace Openddns.Application.Loaders
 {
     public interface IProviderPluginLoader
     {

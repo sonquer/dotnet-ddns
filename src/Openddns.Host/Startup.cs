@@ -1,7 +1,8 @@
-﻿using DotNET.DDNS.Application.InternetProtocol;
-using DotNET.DDNS.Application.Loaders;
+﻿using Microsoft.EntityFrameworkCore;
+using Openddns.Host.Extensions;
+using Openddns.Infrastructure.SQLite;
 
-namespace DotNET.DDNS.Worker
+namespace Openddns.Host
 {
     public class Startup
     {
@@ -28,30 +29,25 @@ namespace DotNET.DDNS.Worker
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IProviderPluginLoader, ProviderPluginLoader>()
-                .AddSingleton<IExternalInternetProtocolAddressRecognizer, ExternalInternetProtocolAddressRecognizer>()
-                .AddHttpClient("InternetProviderClient", client =>
-                {
-                    if (int.TryParse(Configuration["HTTP_TIMEOUT"], out var timeout) == false)
-                    {
-                        timeout = (int)TimeSpan.FromSeconds(15).TotalMilliseconds;
-                    }
-
-                    client.Timeout = TimeSpan.FromSeconds(timeout);
-                });
-
-            services.AddControllersWithViews()
-                .AddControllersAsServices();
-
-            services.AddHostedService<Worker>();
+            services.InstallDependencies(Configuration);
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<DatabaseContext>();
+                context.Database.Migrate();
+                context.Database.EnsureCreated();
+            }
+
+            app.UseStaticFiles();
+
             app.UseRouting();
 
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllers();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

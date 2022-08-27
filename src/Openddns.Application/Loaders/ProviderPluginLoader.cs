@@ -1,13 +1,13 @@
-﻿using DotNET.DDNS.Providers;
-using DotNET.DDNS.Providers.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Openddns.Providers;
+using Openddns.Providers.Models;
 
-namespace DotNET.DDNS.Application.Loaders
+namespace Openddns.Application.Loaders
 {
     public class ProviderPluginLoader : IProviderPluginLoader
     {
@@ -29,7 +29,7 @@ namespace DotNET.DDNS.Application.Loaders
                     .Select(serviceProvider.GetService)
                     .ToList();
 
-                var instance = (IProvider) Activator.CreateInstance(typeToActivate, serviceInstances.ToArray());
+                var instance = (IProvider) Activator.CreateInstance(typeToActivate, serviceInstances.ToArray())!;
 
                 _loadedProviders.Add(instance.Name, instance);
             }

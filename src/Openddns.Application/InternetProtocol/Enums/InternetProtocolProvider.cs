@@ -1,4 +1,4 @@
-﻿namespace DotNET.DDNS.Application.InternetProtocol.Enums
+﻿namespace Openddns.Application.InternetProtocol.Enums
 {
     internal enum InternetProtocolProvider
     {
