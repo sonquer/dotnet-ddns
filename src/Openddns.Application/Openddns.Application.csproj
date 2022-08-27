@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Openddns.Providers.Ovh\Openddns.Providers.Ovh.csproj" />
     <ProjectReference Include="..\Openddns.Providers\Openddns.Providers.csproj" />
   </ItemGroup>
 
