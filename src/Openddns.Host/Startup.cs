@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Openddns.Host.Extensions;
-using Openddns.Infrastructure.SQLite;
+using Openddns.Infrastructure;
 
 namespace Openddns.Host
 {
