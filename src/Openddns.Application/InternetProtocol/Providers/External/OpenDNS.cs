@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DotNET.DDNS.Application.InternetProtocol.Providers.External
+namespace Openddns.Application.InternetProtocol.Providers.External
 {
     internal class OpenDNS : IAddressProvider
     {

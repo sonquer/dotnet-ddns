@@ -1,9 +1,9 @@
-﻿using DotNET.DDNS.Application.InternetProtocol.Factories;
-using Microsoft.Extensions.Configuration;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Openddns.Application.InternetProtocol.Factories;
 
-namespace DotNET.DDNS.Application.InternetProtocol
+namespace Openddns.Application.InternetProtocol
 {
     public class ExternalInternetProtocolAddressRecognizer : IExternalInternetProtocolAddressRecognizer
     {

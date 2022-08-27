@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DotNET.DDNS.Application.InternetProtocol.Providers
+namespace Openddns.Application.InternetProtocol.Providers
 {
     public interface IAddressProvider
     {
