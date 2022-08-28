@@ -4,3 +4,7 @@
 ![last-commit](https://img.shields.io/github/last-commit/sonquer/open-ddns?colorA=192330&style=for-the-badge)
 ![repo-size](https://img.shields.io/github/repo-size/sonquer/open-ddns?colorA=192330&style=for-the-badge)
 ![issues](https://img.shields.io/github/issues-raw/sonquer/open-ddns?colorA=192330&style=for-the-badge)
+
+---
+
+[![CodeFactor](https://www.codefactor.io/repository/github/sonquer/open-ddns/badge)](https://www.codefactor.io/repository/github/sonquer/open-ddns)
