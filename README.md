@@ -7,8 +7,55 @@
 
 ---
 
+[![Docker image](https://github.com/sonquer/open-ddns/actions/workflows/docker-publish.yml/badge.svg?branch=main)](https://github.com/sonquer/open-ddns/actions/workflows/docker-publish.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/sonquer/open-ddns/badge)](https://www.codefactor.io/repository/github/sonquer/open-ddns)
 
-Application UI
+## Configuration directory & required files
+```
+.env/
+├─ providers.json
+├─ database.db
+```
+
+**providers.json**
+
+```
+{
+    "Providers": [
+        {
+            "Provider": "OvhProvider",
+            "Domain": "example.com",
+            "SubDomain": "www", 
+            "Secret": "<secret>"
+        }
+    ]
+}
+```
+
+**database.db** will be generated automatically
+
+---
+
+## docker-compose.yml
+
+```
+version: '3.4'
+
+services:
+  open-ddns-host:
+    image: ghcr.io/sonquer/open-ddns:main
+    volumes:
+      - ./.env:/config/
+    ports:
+      - "5005:80"
+```
+
+```
+docker-compose up -d
+```
+
+---
+
+## Application UI
 
 ![Screenshot 2022-08-28 145418](https://user-images.githubusercontent.com/10676657/187075109-2d6150c8-7de9-4fc7-b0e6-0e6bf333b205.png)
