@@ -19,7 +19,7 @@ namespace Openddns.Application.Loaders
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                paths.Add("/data");
+                paths.Add("/config");
             }
 
             var progress = 1;

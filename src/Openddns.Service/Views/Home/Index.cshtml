@@ -1,0 +1,39 @@
+﻿@using Openddns.Core.Enum
+@model List<Openddns.Core.Models.LogModel>
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Provider</th>
+        <th scope="col">Message</th>
+        <th scope="col">Created at</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var entity in Model)
+    {
+        <tr>
+            <td><span class="badge @ConvertLogTypeToBadgeClassName(Enum.Parse<LogType>(entity.Type))">@entity.Type</span></td>
+            <td><span class="badge bg-dark">@entity.Provider</span></td>
+            <td>@entity.Message</td>
+            <td>@entity.CreatedAt</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@functions
+{
+    string ConvertLogTypeToBadgeClassName(LogType logType) => logType switch
+    {
+        LogType.Information => "bg-info",
+        LogType.Debug => "bg-primary",
+        LogType.Warning => "bg-warning",
+        LogType.Error => "bg-danger",
+        _ => ""
+    };
+}

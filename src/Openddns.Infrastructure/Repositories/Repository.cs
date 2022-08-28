@@ -15,15 +15,17 @@ namespace Openddns.Infrastructure.Repositories
             _databaseContext = databaseContext;
         }
 
-        public async Task<StatusModel> AddStatus(StatusModel status, CancellationToken cancellationToken)
+        public async Task<LogModel> AddLog(LogModel status, CancellationToken cancellationToken)
         {
             await _databaseContext.AddAsync(status, cancellationToken);
             return status;
         }
 
-        public async Task<List<StatusModel>> GetStatuses(CancellationToken cancellationToken)
+        public async Task<List<LogModel>> GetLogs(CancellationToken cancellationToken)
         {
-            return await _databaseContext.Statuses.ToListAsync(cancellationToken);
+            return await _databaseContext.Logs!.OrderByDescending(e => e.CreatedAt)
+                .Take(100)
+                .ToListAsync(cancellationToken);
         }
     }
 }

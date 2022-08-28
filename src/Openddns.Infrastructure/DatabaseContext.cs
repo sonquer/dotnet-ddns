@@ -12,14 +12,14 @@ namespace Openddns.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StatusModel>().ToTable("Statuses");
+            modelBuilder.Entity<LogModel>().ToTable(nameof(Logs));
         }
 
-        public DbSet<StatusModel> Statuses { get; set; }
+        public DbSet<LogModel>? Logs { get; set; }
 
-        public async Task<int> SaveChangesAsync()
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken)
         {
-            return await base.SaveChangesAsync();
+            return await base.SaveChangesAsync(cancellationToken) > 0;
         }
     }
 }

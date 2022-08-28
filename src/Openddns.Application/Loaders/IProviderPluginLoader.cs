@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Openddns.Providers.Models;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using Openddns.Providers.Models;
 
 namespace Openddns.Application.Loaders
 {
     public interface IProviderPluginLoader
     {
-        IEnumerable<string> GetProviders();
-
-        Task Setup(IReadOnlyList<ProviderOptionsModel>? options, string globalInternetProtocolAddress);
+        Task Setup(IReadOnlyList<ProviderOptionsModel>? options, string globalInternetProtocolAddress, CancellationToken cancellationToken);
     }
 }

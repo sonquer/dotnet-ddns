@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Openddns.Core.Interfaces
 {
     public interface IUnitOfWork
     {
-        Task<int> SaveChangesAsync();
+        Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken);
     }
 }

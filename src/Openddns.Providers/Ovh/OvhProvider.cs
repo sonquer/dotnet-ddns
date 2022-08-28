@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Openddns.Core.Enum;
 using Openddns.Core.Interfaces;
 using Openddns.Core.Models;
 using Openddns.Providers.Interfaces;
@@ -27,7 +28,7 @@ namespace Openddns.Providers.Ovh
 
         public string Name => nameof(OvhProvider);
 
-        public async Task Setup(ProviderOptionsModel providerOptionsModel, string internetProtocolAddress)
+        public async Task Setup(ProviderOptionsModel providerOptionsModel, string internetProtocolAddress, CancellationToken cancellationToken)
         {
             try
             {
@@ -54,10 +55,10 @@ namespace Openddns.Providers.Ovh
 
                 if (internetProtocolAddressIsPresent && recordIdsToRemove.Any() == false)
                 {
-                    _logger.LogInformation("Nothing todo.");
+                    _logger.LogInformation("IP is valid.");
 
-                    await _repository.AddStatus(new StatusModel("Nothing todo."), CancellationToken.None);
-                    await _repository.UnitOfWork.SaveChangesAsync();
+                    await _repository.AddLog(new LogModel(nameof(OvhProvider), "IP is valid.", LogType.Debug), cancellationToken);
+                    await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
                     return;
                 }
@@ -66,11 +67,10 @@ namespace Openddns.Providers.Ovh
                 {
                     _logger.LogInformation($"Adding 'A' record as '{providerOptionsModel.SubDomain}.{providerOptionsModel.Domain}' target '{internetProtocolAddress}'");
 
-                    await _repository.AddStatus(new StatusModel($"Adding 'A' record as '{providerOptionsModel.SubDomain}.{providerOptionsModel.Domain}' target '{internetProtocolAddress}'"), CancellationToken.None);
-                    await _repository.UnitOfWork.SaveChangesAsync();
+                    await _repository.AddLog(new LogModel(nameof(OvhProvider), $"Adding 'A' record as '{providerOptionsModel.SubDomain}.{providerOptionsModel.Domain}' target '{internetProtocolAddress}'", LogType.Information), cancellationToken);
+                    await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-                    await client.PostAsync<DnsRecordPost>($"/domain/zone/{providerOptionsModel.Domain}/record",
-                        new DnsRecordPost(internetProtocolAddress, "A", providerOptionsModel.SubDomain ?? "", 0));
+                    await client.PostAsync<DnsRecordPost>($"/domain/zone/{providerOptionsModel.Domain}/record", new DnsRecordPost(internetProtocolAddress, "A", providerOptionsModel.SubDomain ?? "", 0));
                 }
 
                 if (recordIdsToRemove.Any())
@@ -79,8 +79,8 @@ namespace Openddns.Providers.Ovh
                     {
                         _logger.LogInformation($"Deleting record id {recordId} from OVH {providerOptionsModel.SubDomain}.{providerOptionsModel.Domain}");
 
-                        await _repository.AddStatus(new StatusModel("Deleting record id {recordId} from OVH {providerOptionsModel.SubDomain}.{providerOptionsModel.Domain}"), CancellationToken.None);
-                        await _repository.UnitOfWork.SaveChangesAsync();
+                        await _repository.AddLog(new LogModel(nameof(OvhProvider), "Deleting record id {recordId} from OVH {providerOptionsModel.SubDomain}.{providerOptionsModel.Domain}", LogType.Information), cancellationToken);
+                        await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
                         await client.DeleteAsync($"/domain/zone/{providerOptionsModel.Domain}/record/{recordId}");
                     }
@@ -88,8 +88,8 @@ namespace Openddns.Providers.Ovh
             }
             catch (Exception ex)
             {
-                await _repository.AddStatus(new StatusModel(ex.Message), CancellationToken.None);
-                await _repository.UnitOfWork.SaveChangesAsync();
+                await _repository.AddLog(new LogModel(nameof(OvhProvider), ex.Message, LogType.Error), cancellationToken);
+                await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             }
         }
 

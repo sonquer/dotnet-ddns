@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}open-ddns-host
     build:
       context: .
-      dockerfile: Openddns.Host/Dockerfile
+      dockerfile: Openddns.Service/Dockerfile

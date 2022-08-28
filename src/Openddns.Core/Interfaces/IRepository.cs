@@ -9,8 +9,8 @@ namespace Openddns.Core.Interfaces
     {
         IUnitOfWork UnitOfWork { get; }
 
-        Task<StatusModel> AddStatus(StatusModel status, CancellationToken cancellationToken);
+        Task<LogModel> AddLog(LogModel status, CancellationToken cancellationToken);
 
-        Task<List<StatusModel>> GetStatuses(CancellationToken cancellationToken);
+        Task<List<LogModel>> GetLogs(CancellationToken cancellationToken);
     }
 }

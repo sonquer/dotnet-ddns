@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Openddns.Application", "Openddns.Application\Openddns.Application.csproj", "{53597A21-80D4-4199-81D9-A9CFA1B97F5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Openddns.Host", "Openddns.Host\Openddns.Host.csproj", "{5C0B5C2B-A4C2-45D3-BAAB-3464DC4497A0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Openddns.Providers", "Openddns.Providers\Openddns.Providers.csproj", "{FC31DDCD-83AF-4D5A-B6BA-A2A832FDC5A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{93172FEE-6DC1-4253-8AE8-91C60D5D8F3C}"
@@ -20,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Openddns.Core", "Openddns.Core\Openddns.Core.csproj", "{C82315A2-9FD6-41CC-9A70-717C628E513A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Openddns.Infrastructure", "Openddns.Infrastructure\Openddns.Infrastructure.csproj", "{C94C565D-3CD8-46B0-A615-0A13FD7D276B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Openddns.Service", "Openddns.Service\Openddns.Service.csproj", "{1A7D250B-BDAF-4BA5-B6FC-C7928732A4ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{53597A21-80D4-4199-81D9-A9CFA1B97F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53597A21-80D4-4199-81D9-A9CFA1B97F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53597A21-80D4-4199-81D9-A9CFA1B97F5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C0B5C2B-A4C2-45D3-BAAB-3464DC4497A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C0B5C2B-A4C2-45D3-BAAB-3464DC4497A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C0B5C2B-A4C2-45D3-BAAB-3464DC4497A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C0B5C2B-A4C2-45D3-BAAB-3464DC4497A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC31DDCD-83AF-4D5A-B6BA-A2A832FDC5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC31DDCD-83AF-4D5A-B6BA-A2A832FDC5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC31DDCD-83AF-4D5A-B6BA-A2A832FDC5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,16 +47,20 @@ Global
 		{C94C565D-3CD8-46B0-A615-0A13FD7D276B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C94C565D-3CD8-46B0-A615-0A13FD7D276B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C94C565D-3CD8-46B0-A615-0A13FD7D276B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A7D250B-BDAF-4BA5-B6FC-C7928732A4ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A7D250B-BDAF-4BA5-B6FC-C7928732A4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A7D250B-BDAF-4BA5-B6FC-C7928732A4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A7D250B-BDAF-4BA5-B6FC-C7928732A4ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{53597A21-80D4-4199-81D9-A9CFA1B97F5C} = {F7AFEDC6-1AA9-4AEA-8D80-81D434F2FA62}
-		{5C0B5C2B-A4C2-45D3-BAAB-3464DC4497A0} = {F7AFEDC6-1AA9-4AEA-8D80-81D434F2FA62}
 		{FC31DDCD-83AF-4D5A-B6BA-A2A832FDC5A5} = {F7AFEDC6-1AA9-4AEA-8D80-81D434F2FA62}
 		{C82315A2-9FD6-41CC-9A70-717C628E513A} = {B1B28F4F-96AA-4334-8960-3F6422846A3D}
 		{C94C565D-3CD8-46B0-A615-0A13FD7D276B} = {93172FEE-6DC1-4253-8AE8-91C60D5D8F3C}
+		{1A7D250B-BDAF-4BA5-B6FC-C7928732A4ED} = {F7AFEDC6-1AA9-4AEA-8D80-81D434F2FA62}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {783188FD-5F2E-4929-9869-28B5F31ED832}

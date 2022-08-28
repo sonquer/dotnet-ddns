@@ -1,4 +1,5 @@
 ﻿using Openddns.Providers.Models;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Openddns.Providers.Interfaces
@@ -7,6 +8,6 @@ namespace Openddns.Providers.Interfaces
     {
         string Name { get; }
 
-        public Task Setup(ProviderOptionsModel providerOptionsModel, string globalInternetProtocolAddress);
+        public Task Setup(ProviderOptionsModel providerOptionsModel, string globalInternetProtocolAddress, CancellationToken cancellationToken);
     }
 }

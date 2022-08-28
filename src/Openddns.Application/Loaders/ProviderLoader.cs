@@ -1,42 +1,25 @@
-﻿using Openddns.Providers.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Openddns.Providers.Interfaces;
 using Openddns.Providers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Openddns.Application.Loaders
 {
     public class ProviderLoader : IProviderPluginLoader
     {
-        private readonly Dictionary<string, IProvider> _loadedProviders = new();
+        private readonly IServiceProvider _serviceProvider;
 
         public ProviderLoader(IServiceProvider serviceProvider)
         {
-            var typesToActivate = typeof(IProvider)
-                .Assembly
-                .GetTypes()
-                .Where(e => e.IsClass && e.IsAbstract == false && e.GetInterfaces().Contains(typeof(IProvider)));
-
-            foreach (var typeToActivate in typesToActivate)
-            {
-                var constructor = typeToActivate.GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
-
-                var serviceInstances = constructor.GetParameters()
-                    .Select(parameter => parameter.ParameterType)
-                    .Select(serviceProvider.GetService)
-                    .ToList();
-
-                var instance = (IProvider)Activator.CreateInstance(typeToActivate, serviceInstances.ToArray())!;
-
-                _loadedProviders.Add(instance.Name, instance);
-            }
+            _serviceProvider = serviceProvider;
         }
 
-        public IEnumerable<string> GetProviders() => _loadedProviders.Keys;
-
-        public async Task Setup(IReadOnlyList<ProviderOptionsModel>? options, string globalInternetProtocolAddress)
+        public async Task Setup(IReadOnlyList<ProviderOptionsModel>? options, string globalInternetProtocolAddress, CancellationToken cancellationToken)
         {
             if (options is null)
             {
@@ -50,7 +33,22 @@ namespace Openddns.Application.Loaders
                     throw new ArgumentNullException(nameof(option.Provider), "Provider name in options is null or empty");
                 }
 
-                await _loadedProviders[option.Provider].Setup(option, globalInternetProtocolAddress);
+                var typeToActivate = typeof(IProvider)
+                    .Assembly
+                    .GetTypes()
+                    .First(e => e.IsClass && e.IsAbstract == false && e.GetInterfaces().Contains(typeof(IProvider)) && e.Name == option.Provider);
+
+                using var scope = _serviceProvider.CreateScope();
+
+                var constructor = typeToActivate.GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
+
+                var serviceInstances = constructor.GetParameters()
+                    .Select(parameter => parameter.ParameterType)
+                    .Select(scope.ServiceProvider.GetService)
+                    .ToList();
+
+                var instance = (IProvider)Activator.CreateInstance(typeToActivate, serviceInstances.ToArray())!;
+                await instance.Setup(option, globalInternetProtocolAddress, cancellationToken);
             }
         }
     }
