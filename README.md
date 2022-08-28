@@ -8,3 +8,7 @@
 ---
 
 [![CodeFactor](https://www.codefactor.io/repository/github/sonquer/open-ddns/badge)](https://www.codefactor.io/repository/github/sonquer/open-ddns)
+
+Application UI
+
+![Screenshot 2022-08-28 145418](https://user-images.githubusercontent.com/10676657/187075109-2d6150c8-7de9-4fc7-b0e6-0e6bf333b205.png)
