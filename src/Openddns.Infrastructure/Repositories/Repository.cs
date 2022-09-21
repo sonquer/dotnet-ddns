@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Openddns.Core.Enum;
 using Openddns.Core.Interfaces;
 using Openddns.Core.Models;
 
@@ -21,9 +22,14 @@ namespace Openddns.Infrastructure.Repositories
             return status;
         }
 
-        public async Task<List<LogModel>> GetLogs(CancellationToken cancellationToken)
+        public async Task<List<LogModel>> GetLogs(LogType[] excludedLogTypes, CancellationToken cancellationToken)
         {
-            return await _databaseContext.Logs!.OrderByDescending(e => e.CreatedAt)
+            var logTypes = excludedLogTypes.Select(e => e.ToString())
+                .ToList();
+
+            return await _databaseContext.Logs!
+                .Where(e => logTypes.Contains(e.Type) == false)
+                .OrderByDescending(e => e.CreatedAt)
                 .Take(100)
                 .ToListAsync(cancellationToken);
         }
