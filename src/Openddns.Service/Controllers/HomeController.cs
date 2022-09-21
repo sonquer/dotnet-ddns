@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Openddns.Application.Queries;
+using Openddns.Core.Enum;
 
 namespace Openddns.Service.Controllers
 {
@@ -18,7 +19,7 @@ namespace Openddns.Service.Controllers
         [HttpGet("Index")]
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View(await _mediator.Send(new GetLogsQuery(), cancellationToken));
+            return View(await _mediator.Send(new GetLogsQuery(excludedLogTypes: new[] { LogType.Debug }), cancellationToken));
         }
     }
 }

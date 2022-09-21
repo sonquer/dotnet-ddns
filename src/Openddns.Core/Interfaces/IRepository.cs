@@ -1,4 +1,5 @@
-﻿using Openddns.Core.Models;
+﻿using Openddns.Core.Enum;
+using Openddns.Core.Models;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,6 @@ namespace Openddns.Core.Interfaces
 
         Task<LogModel> AddLog(LogModel status, CancellationToken cancellationToken);
 
-        Task<List<LogModel>> GetLogs(CancellationToken cancellationToken);
+        Task<List<LogModel>> GetLogs(LogType[] excludedLogTypes, CancellationToken cancellationToken);
     }
 }
