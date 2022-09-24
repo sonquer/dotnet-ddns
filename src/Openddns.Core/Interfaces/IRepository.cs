@@ -13,5 +13,9 @@ namespace Openddns.Core.Interfaces
         Task<LogModel> AddLog(LogModel status, CancellationToken cancellationToken);
 
         Task<List<LogModel>> GetLogs(LogType[] excludedLogTypes, CancellationToken cancellationToken);
+
+        Task<List<LogModel>> GetExpiredLogs(CancellationToken cancellationToken);
+
+        void DeleteLog(LogModel log);
     }
 }

@@ -1,5 +1,7 @@
+using Openddns.Application.Cleaners;
 using Openddns.Application.InternetProtocol;
 using Openddns.Application.Loaders;
+using Openddns.Core.Models;
 using Openddns.Providers.Models;
 
 namespace Openddns.Service
@@ -14,15 +16,19 @@ namespace Openddns.Service
 
         private readonly IExternalInternetProtocolAddressRecognizer _externalInternetProtocolAddressRecognizer;
 
+        private readonly ICleaner<LogModel> _logModelCleaner;
+
         public Worker(ILogger<Worker> logger, 
             IConfiguration configuration,
             IProviderPluginLoader providerPluginLoader, 
-            IExternalInternetProtocolAddressRecognizer externalInternetProtocolAddressRecognizer)
+            IExternalInternetProtocolAddressRecognizer externalInternetProtocolAddressRecognizer,
+            ICleaner<LogModel> logModelCleaner)
         {
             _logger = logger;
             _configuration = configuration;
             _providerPluginLoader = providerPluginLoader;
             _externalInternetProtocolAddressRecognizer = externalInternetProtocolAddressRecognizer;
+            _logModelCleaner = logModelCleaner;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -45,6 +51,8 @@ namespace Openddns.Service
 
             while (stoppingToken.IsCancellationRequested == false)
             {
+                await _logModelCleaner.Execute(stoppingToken);
+
                 var globalInternetProtocolAddress = await _externalInternetProtocolAddressRecognizer.GetExternalAddress(_configuration);
 
                 _logger.LogInformation($"Your IP = '{globalInternetProtocolAddress}'");

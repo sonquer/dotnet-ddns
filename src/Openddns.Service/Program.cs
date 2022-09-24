@@ -6,6 +6,8 @@ using Openddns.Core.Interfaces;
 using Openddns.Infrastructure;
 using Openddns.Infrastructure.Repositories;
 using System.Runtime.InteropServices;
+using Openddns.Application.Cleaners;
+using Openddns.Core.Models;
 
 namespace Openddns.Service
 {
@@ -44,7 +46,8 @@ namespace Openddns.Service
             builder.Services.AddScoped<IRepository, Repository>();
 
             builder.Services.AddSingleton<IProviderPluginLoader, ProviderLoader>()
-                .AddSingleton<IExternalInternetProtocolAddressRecognizer, ExternalInternetProtocolAddressRecognizer>();
+                .AddSingleton<IExternalInternetProtocolAddressRecognizer, ExternalInternetProtocolAddressRecognizer>()
+                .AddSingleton<ICleaner<LogModel>, ExpiredLogsCleaner>();
 
             builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 

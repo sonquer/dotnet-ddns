@@ -33,5 +33,18 @@ namespace Openddns.Infrastructure.Repositories
                 .Take(100)
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<List<LogModel>> GetExpiredLogs(CancellationToken cancellationToken)
+        {
+            return await _databaseContext.Logs!
+                .Where(e => e.CreatedAt <= DateTime.Now.AddDays(-31).Date)
+                .OrderByDescending(e => e.CreatedAt)
+                .ToListAsync(cancellationToken);
+        }
+
+        public void DeleteLog(LogModel log)
+        {
+            _databaseContext.Logs!.Remove(log);
+        }
     }
 }
