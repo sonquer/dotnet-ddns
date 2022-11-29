@@ -85,6 +85,8 @@ namespace Openddns.Providers.Ovh
                         await client.DeleteAsync($"/domain/zone/{providerOptionsModel.Domain}/record/{recordId}");
                     }
                 }
+
+                await client.PostAsync($"/domain/zone/{providerOptionsModel.Domain}/refresh");
             }
             catch (Exception ex)
             {
